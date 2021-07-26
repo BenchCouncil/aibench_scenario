@@ -1,0 +1,89 @@
+version: '3'
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.5.2
+    container_name: elasticsearch
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata1:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - esnet
+  recommender:
+    build: ./recommender
+    container_name: recommender
+    command: [ "python", "/usr/src/app/cpu_app.py" ]
+    networks:
+      - esnet
+  neo4j:
+    image: neo4j:3.5.8
+    container_name: neo4j
+    environment:
+      - NEO4J_AUTH=none
+    volumes:
+      - neo4j_data:/data
+    ports:
+      - 7474:7474
+      - 7687:7687
+    networks:
+      - esnet
+  fasttext:
+    build: ./serving
+    container_name: fasttext
+    volumes:
+      - ./fasttext:/models/fasttext
+    command: [ "/app/tensorflow_model_server", "--model_name=fasttext", "--model_base_path=/models/fasttext", "--port=8502", "--rest_api_port=8503" ]
+    networks:
+      - esnet
+  ranking:
+    build: ./serving
+    container_name: ranking
+    volumes:
+      - ./ranking:/models/ranking
+    command: [ "/app/tensorflow_model_server", "--model_name=ranking", "--model_base_path=/models/ranking", "--rest_api_port=8501" ]
+    networks:
+      - esnet
+  resent:
+    build: ./serving
+    container_name: resnet
+    volumes:
+      - ./resnet50:/models/resnet50
+    command: [ "/app/tensorflow_model_server", "--model_name=resnet", "--model_base_path=/models/resnet50", "--port=8504", "--rest_api_port=8505" ]
+    networks:
+      - esnet
+  ranker:
+    build: ./serving
+    container_name: ranker
+    volumes:
+      - ./recommendation:/models/recommendation
+    command: [ "/app/tensorflow_model_server", "--model_name=ncf", "--model_base_path=/models/recommendation", "--port=8506", "--rest_api_port=8507" ]
+    networks:
+      - esnet
+  search_planer:
+    image: openjdk:8
+    container_name: search_planer
+    volumes:
+      - ./search-planer:/app/search-planer
+    ports:
+      - 8088:8088
+    command: [ "java", "-jar", "/app/search-planer/build/libs/search-planer-0.0.1-SNAPSHOT.jar" ]
+    networks:
+      - esnet
+
+volumes:
+  esdata1:
+    driver: local
+  neo4j_data:
+    driver: local
+
+networks:
+  esnet:

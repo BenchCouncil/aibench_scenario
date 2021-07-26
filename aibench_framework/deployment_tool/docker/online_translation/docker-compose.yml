@@ -1,0 +1,36 @@
+version: '3'
+services:
+  speech_to_text:
+    image: codait/max-speech-to-text-converter
+    container_name: speech_to_text
+    # ports:
+    #   - 5000:5000
+    networks:
+      - translation
+  image_to_text:
+    build: ./serving
+    container_name: image_to_text
+    volumes:
+      - ./attention-ocr/exported-model:/models/image_to_text
+    command: [ "/app/tensorflow_model_server", "--model_name=image_to_text", "--model_base_path=/models/image_to_text", "--port=8501", "--rest_api_port=8502" ]
+    networks:
+      - translation
+  text_to_text:
+    image: nmtwizard/opennmt-tf
+    container_name: text_to_text
+    volumes:
+      - ./opennmt:/root/models
+    command: ["--model", "ende", "serve", "--host", "0.0.0.0", "--port", "4000"]
+    networks:
+      - translation
+  search_planer:
+    build: ./search_planer
+    container_name: search_planer
+    command: [ "python", "/usr/src/app/app_cpu.py" ]
+    ports:
+      - 8080:8080
+    networks:
+      - translation
+
+networks:
+  translation:
