@@ -1,0 +1,10 @@
+*.gif,*.so,*.egg,*.o,*.pkl,*.png,*.log,*.so.*,*.zip,*.tar.gz,*.npy,*.h5,*.bin,*.tfrecords,*.jar,*.pb,*.tgz,*.pt,*.a,*.vocab filter=lfs diff=lfs merge=lfs -text
+aibench_framework/deployment_tool/ansible/e_commerce_search/files/query-planer-server/app/ranking_weights_model.h5 filter=lfs diff=lfs merge=lfs -text
+aibench_framework/online/non_AI_module/serving/tensorflow_model_server filter=lfs diff=lfs merge=lfs -text
+aibench_framework/online/non_AI_module/search-planer/build/libs/search-planer-0.0.1-SNAPSHOT.jar filter=lfs diff=lfs merge=lfs -text
+aibench_framework/online/non_AI_module/load_generator/load_generator.tar.gz filter=lfs diff=lfs merge=lfs -text
+aibench_framework/online/AI_module/Face_embedding/facenet/datasets/train_vggface2.csv filter=lfs diff=lfs merge=lfs -text
+aibench_framework/online/AI_module/3D_face_recognition/train.csv filter=lfs diff=lfs merge=lfs -text
+aibench_framework/data_input/text/e_commerce_search/good_items.txt filter=lfs diff=lfs merge=lfs -text
+aibench_framework/data_input/text/e_commerce_search/bad_items.txt filter=lfs diff=lfs merge=lfs -text
+aibench_framework/data_input/text/e_commerce_search/titles_label.txt filter=lfs diff=lfs merge=lfs -text
