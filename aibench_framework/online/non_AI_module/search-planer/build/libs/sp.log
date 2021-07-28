@@ -1,0 +1,4 @@
+2019-11-24 11:52:31.943  INFO 9532 --- [main] o.b.aibench.BenchmarkApplication         : Starting BenchmarkApplication on tangfei-Mac with PID 9532 (/Users/tangfei/Dev/AIBench/ApplicationBenchmark/OnlineModule/search-planer/build/libs/search-planer-0.0.1-SNAPSHOT.jar started by tangfei in /Users/tangfei/Dev/AIBench/ApplicationBenchmark/OnlineModule/search-planer/build/libs)
+2019-11-24 11:52:31.947  INFO 9532 --- [main] o.b.aibench.BenchmarkApplication         : No active profile set, falling back to default profiles: default
+2019-11-24 11:52:33.040  INFO 9532 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-11-24 11:52:33.068  INFO 9532 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 17ms. Found 0 repository interfaces.

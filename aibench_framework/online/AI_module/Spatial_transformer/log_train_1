@@ -1,0 +1,8 @@
+loading model
+test_time_start
+
+Test set: Average loss: 0.0364, Accuracy: 9885/10000 (99%)
+
+test_time: 1.6952288150787354  s
+/root/anaconda3/lib/python3.6/site-packages/torch/nn/_reduction.py:46: UserWarning: size_average and reduce args will be deprecated, please use reduction='sum' instead.
+  warnings.warn(warning.format(ret))

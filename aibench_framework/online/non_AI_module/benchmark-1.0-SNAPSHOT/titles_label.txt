@@ -1,0 +1,1 @@
+http://42.193.114.107:8080/aibench_framework/online/non_AI_module/benchmark-1.0-SNAPSHOT/titles_label.txt

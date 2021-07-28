@@ -1,0 +1,18 @@
+{
+    "source": "en",
+    "target": "de",
+    "model": "ende",
+    "modelType": "release",
+    "tokenization": {
+        "source": {
+            "mode": "none",
+            "sp_model_path": "${MODEL_DIR}/saved_model/assets.extra/wmtende.model",
+            "vocabulary": "${MODEL_DIR}/saved_model/assets/wmtende.vocab"
+        },
+        "target": {
+            "mode": "none",
+            "sp_model_path": "${MODEL_DIR}/saved_model/assets.extra/wmtende.model",
+            "vocabulary": "${MODEL_DIR}/saved_model/assets/wmtende.vocab"
+        }
+    }
+}

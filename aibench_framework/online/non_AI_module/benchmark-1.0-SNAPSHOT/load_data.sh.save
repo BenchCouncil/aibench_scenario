@@ -1,0 +1,1 @@
+bin/benchmark-cli load --bad-item=bad_items.txt --bad-item-host=172.18.11.119 --excellent-item=excellent_items.txt --excellent-item-host=172.18.11.114 --good-item=good_items.txt --good-item-host=172.18.11.85 --neo4j-uri=bolt://172.18.11.1:7687 --ranking-host=172.18.11.122 --summary-host=172.18.11.125 --user=user_data.txt
