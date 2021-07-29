@@ -17,13 +17,13 @@ services:
     ports:
       - 9200:9200
     networks:
-      - esnet
+      - ecommerce
   recommender:
-    build: ./recommender
+    build: ../../framework/online/non_AI_module/recommender
     container_name: recommender
     command: [ "python", "/usr/src/app/cpu_app.py" ]
     networks:
-      - esnet
+      - ecommerce
   neo4j:
     image: neo4j:3.5.8
     container_name: neo4j
@@ -35,49 +35,49 @@ services:
       - 7474:7474
       - 7687:7687
     networks:
-      - esnet
+      - ecommerce
   fasttext:
-    build: ./serving
+    build: ../../framework/online/non_AI_module/serving
     container_name: fasttext
     volumes:
-      - ./fasttext:/models/fasttext
+      - ../../framework/online/AI_module/fasttext:/models/fasttext
     command: [ "/app/tensorflow_model_server", "--model_name=fasttext", "--model_base_path=/models/fasttext", "--port=8502", "--rest_api_port=8503" ]
     networks:
-      - esnet
+      - ecommerce
   ranking:
-    build: ./serving
+    build: ../../framework/online/non_AI_module/serving
     container_name: ranking
     volumes:
-      - ./ranking:/models/ranking
+      - ../../framework/online/AI_module/ranking:/models/ranking
     command: [ "/app/tensorflow_model_server", "--model_name=ranking", "--model_base_path=/models/ranking", "--rest_api_port=8501" ]
     networks:
-      - esnet
+      - ecommerce
   resent:
-    build: ./serving
-    container_name: resnet
+    build: ../../framework/online/non_AI_module/serving
+    container_name: image_classification
     volumes:
-      - ./resnet50:/models/resnet50
-    command: [ "/app/tensorflow_model_server", "--model_name=resnet", "--model_base_path=/models/resnet50", "--port=8504", "--rest_api_port=8505" ]
+      - ../../framework/online/AI_module/image_classification:/models/image_classification
+    command: [ "/app/tensorflow_model_server", "--model_name=image_classification", "--model_base_path=/models/image_classification", "--port=8504", "--rest_api_port=8505" ]
     networks:
-      - esnet
+      - ecommerce
   ranker:
-    build: ./serving
+    build: ../../framework/online/non_AI_module/serving
     container_name: ranker
     volumes:
-      - ./recommendation:/models/recommendation
+      - ../../framework/online/AI_module/recommendation:/models/recommendation
     command: [ "/app/tensorflow_model_server", "--model_name=ncf", "--model_base_path=/models/recommendation", "--port=8506", "--rest_api_port=8507" ]
     networks:
-      - esnet
+      - ecommerce
   search_planer:
     image: openjdk:8
     container_name: search_planer
     volumes:
-      - ./search-planer:/app/search-planer
+      - ../../framework/online/non_AI_module/search-planer:/app/search-planer
     ports:
       - 8088:8088
     command: [ "java", "-jar", "/app/search-planer/build/libs/search-planer-0.0.1-SNAPSHOT.jar" ]
     networks:
-      - esnet
+      - ecommerce
 
 volumes:
   esdata1:
@@ -86,4 +86,4 @@ volumes:
     driver: local
 
 networks:
-  esnet:
+  ecommerce:
